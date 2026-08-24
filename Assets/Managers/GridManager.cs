@@ -4,8 +4,8 @@ public class GridManager : MonoBehaviour
 {
     public GameObject prefab;
 
-    public int rows = 82;
-    public int columns = 95;
+    public int columns = 76;
+    public int rows = 98 ;
 
     public float xOffset = -70f;
     public float zOffset = -85f;
@@ -15,14 +15,14 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        for (int row = 0; row < rows; row++)
+        for (int column = 0; column < columns; column++)
         {
-            for (int column = 0; column < columns; column++)
+            for (int row = 0; row < rows; row++)
             {
                 Vector3 position = new Vector3(
-                    column * spacingX + xOffset,
+                    row * spacingX + xOffset,
                     0,
-                    row * spacingZ + zOffset
+                    column * spacingZ + zOffset
                 );
 
                 Instantiate(prefab, position, Quaternion.identity);
