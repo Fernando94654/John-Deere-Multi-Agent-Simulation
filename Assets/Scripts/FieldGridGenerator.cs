@@ -1,25 +1,13 @@
 using UnityEngine;
-
-/// <summary>
-/// Genera una cuadrícula de "fields" (plataformas) a partir de un prefab.
-/// Cada field ocupa una celda de tamaño unitario (1x1) en el plano XZ.
-/// El arreglo resultante puede ser consumido directamente por
-/// FieldController / PlatformSpawner para el spawneo de obstáculos.
-/// </summary>
+using TMPro;
 public class FieldGridGenerator : MonoBehaviour
 {
-    public int rows = 10;
-    public int columns = 10;
     public GameObject fieldPrefab;
     public float spacing = 1f;
     public GameObject[] fields;
 
-    void Awake()
-    {
-        GenerateGrid();
-    }
 
-    private void GenerateGrid()
+    public void GenerateGrid(int rows, int columns)
     {
         fields = new GameObject[rows*columns];
         int index = 0;
