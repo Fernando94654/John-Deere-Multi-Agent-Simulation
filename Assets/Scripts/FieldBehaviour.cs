@@ -9,7 +9,7 @@ public class FieldBehaviour : MonoBehaviour
         if (other.CompareTag("tractor")|| other.CompareTag("harvester"))
         {
             Debug.Log($"FieldBehaviour: OnTriggerEnter with {other.gameObject.name} (tag: {other.gameObject.tag})");
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -4,11 +4,17 @@ using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour
 {
+    public static Spawner spawner;
     public GameObject[] SpawnableObjects;
     public GameObject wheatPrefab;
     public float wheatSpacing = 0.1f;
-
     private float obstaclePercentage = 0.05f;
+    private List<GameObject> wheatList = new List<GameObject>();
+
+    void Awake()
+    {
+        spawner = this;
+    }
 
     public void SpawnObstacles(GameObject[] fields)
     {
@@ -96,8 +102,26 @@ public class Spawner : MonoBehaviour
                     startZ + row * stepZ
                 );
 
-                Instantiate(wheatPrefab, spawnPosition, Quaternion.identity);
+                GameObject wheat = Instantiate(
+    wheatPrefab,
+    spawnPosition,
+    Quaternion.identity
+);
+
+wheatList.Add(wheat);
             }
         }
     }
+
+
+public void ReactivateWheat()
+{
+    foreach (GameObject wheat in wheatList)
+    {
+        if (wheat != null && !wheat.activeSelf)
+        {
+            wheat.SetActive(true);
+        }
+    }
+}
 }
