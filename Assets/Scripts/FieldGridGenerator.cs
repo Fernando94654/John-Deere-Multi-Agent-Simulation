@@ -55,13 +55,13 @@ public class FieldGridGenerator : MonoBehaviour
     {
         if (!IsGenerated)
         {
-            Debug.LogWarning("Se pidió una celda antes de generar el grid.");
+            Debug.LogWarning("A cell was requested before the grid was generated.");
             return transform.position;
         }
 
         if (row < 0 || row >= gridRows || col < 0 || col >= gridColumns)
         {
-            Debug.LogWarning($"Celda fuera de rango: ({row}, {col})");
+            Debug.LogWarning($"Cell out of range: ({row}, {col})");
             return transform.position;
         }
 

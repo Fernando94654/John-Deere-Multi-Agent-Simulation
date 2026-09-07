@@ -107,12 +107,12 @@ public class WebSocketManager : MonoBehaviour
     public event Action<SimulationState> OnStateUpdated;
     public SimulationState LatestState { get; private set; }
 
-    [Header("Conexión")]
+    [Header("Connection")]
     public string serverUrl = "ws://localhost:8765";
 
     // The server idles until the UI button sends the field size, not the connection.
-    public bool Conectado { get; private set; }
-    public bool ConfiguracionEnviada { get; private set; }
+    public bool IsConnected { get; private set; }
+    public bool ConfigurationSent { get; private set; }
 
     private WebSocket websocket;
 
@@ -122,8 +122,8 @@ public class WebSocketManager : MonoBehaviour
 
         websocket.OnOpen += () =>
         {
-            Conectado = true;
-            Debug.Log("Conectado al servidor. Esperando a que se inicie la simulación.");
+            IsConnected = true;
+            Debug.Log("Connected to the server. Waiting for the simulation to start.");
         };
  
         websocket.OnError += (error) =>
@@ -133,7 +133,7 @@ public class WebSocketManager : MonoBehaviour
  
         websocket.OnClose += (closeCode) =>
         {
-            Debug.Log("Conexión cerrada");
+            Debug.Log("Connection closed");
         };
  
         websocket.OnMessage += (bytes) =>
@@ -154,24 +154,24 @@ public class WebSocketManager : MonoBehaviour
     }
  
     // Called by the UI button; the server builds the run, so only the first call counts.
-    public async void EnviarConfiguracion(int rows, int columns)
+    public async void SendConfiguration(int rows, int columns)
     {
-        if (!Conectado)
+        if (!IsConnected)
         {
-            Debug.LogWarning("Todavía no hay conexión con el servidor.");
+            Debug.LogWarning("No connection to the server yet.");
             return;
         }
 
-        if (ConfiguracionEnviada)
+        if (ConfigurationSent)
         {
-            Debug.LogWarning("La simulación ya arrancó; para cambiar el tamaño hay que reiniciar el Play.");
+            Debug.LogWarning("The run already started; restart Play to change the field size.");
             return;
         }
 
-        ConfiguracionEnviada = true;
+        ConfigurationSent = true;
 
         FieldRequest request = new FieldRequest { rows = rows, columns = columns };
-        Debug.Log("Pidiendo campo de " + rows + "x" + columns);
+        Debug.Log("Requesting a field of " + rows + "x" + columns);
         await websocket.SendText(JsonUtility.ToJson(request));
     }
 
@@ -183,7 +183,7 @@ public class WebSocketManager : MonoBehaviour
         if (state == null || state.grid == null || state.obstacles == null
             || state.silos == null || state.tractors == null || state.harvesters == null)
         {
-            Debug.LogWarning("Mensaje recibido con formato inesperado: " + message);
+            Debug.LogWarning("Message received in an unexpected format: " + message);
             return;
         }
  

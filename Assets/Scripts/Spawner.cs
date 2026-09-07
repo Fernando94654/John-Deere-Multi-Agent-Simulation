@@ -123,10 +123,9 @@ public class Spawner : MonoBehaviour
         if (columns > MaxWheatPerAxis || rows > MaxWheatPerAxis)
         {
             Debug.LogWarning(
-                $"{field.name}: se calcularon {columns}x{rows} trigos, lo cual excede " +
-                $"el límite de seguridad ({MaxWheatPerAxis}). Revisa la escala real de " +
-                "fieldPrefab (probablemente mide más de 1x1 unidad). Se recorta el " +
-                "conteo para evitar un cuelgue del Editor."
+                $"{field.name}: {columns}x{rows} wheat instances exceed the safety cap " +
+                $"of {MaxWheatPerAxis}. Check fieldPrefab's real scale (it is probably " +
+                "bigger than 1x1). The count is clamped to avoid hanging the Editor."
             );
 
             columns = Mathf.Min(columns, MaxWheatPerAxis);

@@ -4,7 +4,7 @@ using UnityEngine;
 // Glue: takes server state, builds the field once, then spawns and drives the vehicles.
 public class VehicleManager : MonoBehaviour
 {
-    [Header("Referencias")]
+    [Header("References")]
     public WebSocketManager webSocketManager;
     public FieldGridGenerator fieldGridGenerator;
     public FieldPainter fieldPainter;
@@ -13,9 +13,9 @@ public class VehicleManager : MonoBehaviour
     public GameObject tractorPrefab;
     public GameObject harvesterPrefab;
 
-    [Header("Presentación")]
+    [Header("Presentation")]
     [Tooltip("Spacing within a cell so vehicles do not overlap at the silo.")]
-    public float separacionEnCelda = 3f;
+    public float cellSpread = 3f;
 
     // Vehicles are kept by id so later updates move them instead of recreating them.
     private Dictionary<string, GameObject> tractorObjects = new Dictionary<string, GameObject>();
@@ -55,7 +55,7 @@ public class VehicleManager : MonoBehaviour
         foreach (VehicleData vehicle in vehicles)
         {
             Vector3 targetPosition = fieldGridGenerator.GetCellCenter(vehicle.row, vehicle.column)
-                                     + DesfaseDe(vehicle.id);
+                                     + OffsetFor(vehicle.id);
 
             if (!objects.ContainsKey(vehicle.id))
             {
@@ -77,24 +77,24 @@ public class VehicleManager : MonoBehaviour
 
             if (vehicle.heading != null)
             {
-                mover.SetFacing(DireccionMundo(vehicle.heading));
+                mover.SetFacing(WorldDirection(vehicle.heading));
             }
         }
     }
 
     // The engine thinks in (row, col); rows run toward -Z and columns toward +X.
-    Vector3 DireccionMundo(HeadingData heading)
+    Vector3 WorldDirection(HeadingData heading)
     {
         return new Vector3(heading.column, 0f, -heading.row);
     }
 
     // Machines may share the silo cell, so a small per-id offset keeps them apart.
-    Vector3 DesfaseDe(string id)
+    Vector3 OffsetFor(string id)
     {
         int hash = Mathf.Abs(id.GetHashCode());
-        float angulo = (hash % 360) * Mathf.Deg2Rad;
+        float angle = (hash % 360) * Mathf.Deg2Rad;
 
-        return new Vector3(Mathf.Cos(angulo), 0f, Mathf.Sin(angulo)) * separacionEnCelda;
+        return new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * cellSpread;
     }
 
     // Marks the obstacle and silo cells on the freshly built field.

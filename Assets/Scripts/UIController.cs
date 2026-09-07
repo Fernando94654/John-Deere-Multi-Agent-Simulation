@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
     public WebSocketManager webSocketManager;
 
     // The engine leaves a bare headland per side; below this there is no crop left.
-    private const int MinimoPorLado = 6;
+    private const int MinimumSide = 6;
 
 
     public TMP_InputField rowsInputField;
@@ -17,7 +17,7 @@ public class UIController : MonoBehaviour
     public TMP_Text timeText;
 
     private int rows,columns;
-    private bool simulacionIniciada;
+    private bool simulationStarted;
     public float timer = 0f;
 
     void Awake()
@@ -29,7 +29,7 @@ public class UIController : MonoBehaviour
     {
         
 
-        if (simulacionIniciada)
+        if (simulationStarted)
         {
             timer += Time.deltaTime;
             timeText.text = "Tiempo: " + timer.ToString("F2") + "s";
@@ -51,23 +51,23 @@ public class UIController : MonoBehaviour
     {
         if (!int.TryParse(rowsInputField.text, out rows) || !int.TryParse(columnsInputField.text, out columns))
         {
-            Debug.LogWarning("Filas y columnas deben ser números enteros.");
+            Debug.LogWarning("Rows and columns must be whole numbers.");
             return;
         }
 
-        if (rows < MinimoPorLado || columns < MinimoPorLado)
+        if (rows < MinimumSide || columns < MinimumSide)
         {
-            Debug.LogWarning("El campo debe ser de al menos " + MinimoPorLado + "x" + MinimoPorLado + ".");
+            Debug.LogWarning("The field must be at least " + MinimumSide + "x" + MinimumSide + ".");
             return;
         }
 
         // The server builds the field from this size; Unity draws it on the first state.
-        webSocketManager.EnviarConfiguracion(rows, columns);
-        iniciarSimulacion();
+        webSocketManager.SendConfiguration(rows, columns);
+        StartSimulation();
     }
 
-    void iniciarSimulacion()
+    void StartSimulation()
     {
-        simulacionIniciada = true;
+        simulationStarted = true;
     }
 }
