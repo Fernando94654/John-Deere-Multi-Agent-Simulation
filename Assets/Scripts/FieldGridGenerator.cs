@@ -6,14 +6,12 @@ public class FieldGridGenerator : MonoBehaviour
     public float spacing = 1f;
     public GameObject[] fields;
 
-    // Se guardan para poder calcular índices y validar límites en
-    // GetCellCenter() sin tener que volver a recibirlos como parámetro.
+    // Kept so GetCellCenter() can index and bounds-check without re-receiving them.
     private int gridRows;
     private int gridColumns;
     public int Columns => gridColumns;
 
-    // Evita generar el campo más de una vez si el servidor sigue mandando
-    // el mismo tamaño de grid en cada mensaje (ver VehicleManager).
+    // Stops the field being rebuilt on every message that repeats the grid size.
     public bool IsGenerated { get; private set; } = false;
 
     public void GenerateGrid(int rows, int columns)
@@ -28,14 +26,10 @@ public class FieldGridGenerator : MonoBehaviour
         {
             for (int col = 0; col < columns; col++)
             {
-                // Columnas: se centran respecto al objeto (mitad hacia +X,
-                // mitad hacia -X), en vez de partir todas hacia la derecha.
+                // Columns straddle the object: half toward +X, half toward -X.
                 float xOffset = (col - (columns - 1) / 2f) * spacing;
 
-                // Filas: se restan en vez de sumarse, de modo que row = 0
-                // quede exactamente en el objeto (el "centro superior") y
-                // las filas siguientes avancen en -Z, es decir, hacia el
-                // lado contrario de donde apunta la flecha azul.
+                // Rows subtract, so row 0 sits on the object and the rest run toward -Z.
                 float zOffset = -row * spacing;
 
                 Vector3 localPosition = new Vector3(xOffset, 0f, zOffset);
@@ -56,10 +50,7 @@ public class FieldGridGenerator : MonoBehaviour
         IsGenerated = true;
     }
 
-    // Regresa la posición en el mundo del centro de la celda (row, col).
-    // Se asume que el pivote de fieldPrefab está en el centro del cuadrito
-    // (como ocurre con un Plane o Cube por defecto); si el prefab tuviera
-    // el pivote en una esquina, habría que sumar (spacing / 2f) en x y z.
+    // World position of cell (row, col); assumes fieldPrefab's pivot is cell-centred.
     public Vector3 GetCellCenter(int row, int col)
     {
         if (!IsGenerated)

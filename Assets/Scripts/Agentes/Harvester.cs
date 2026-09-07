@@ -49,7 +49,7 @@ public class Harvester : MonoBehaviour
         {
         ResetMovement();
         }
-        // después del segundo 5 ya no hace nada: se detiene
+        // Past second 5 no branch matches, so the machine stops.
         
 }
 public void ResetMovement()
