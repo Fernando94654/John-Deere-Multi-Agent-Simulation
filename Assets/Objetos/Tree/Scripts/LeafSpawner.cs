@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class LeafSpawner : MonoBehaviour
 {
-    public GameObject leafPrefab;      // Prefab de la hoja
-    public float spawnRadius;     // Radio alrededor del punto central
-    public Vector3 spawnCenter;        // Centro del área de generación (ej. copa del árbol)
+    public GameObject leafPrefab;      // the leaf to spawn
+    public float spawnRadius;     // radius around the centre point
+    public Vector3 spawnCenter;        // centre of the spawn area, e.g. the treetop
 
-    public float spawnInterval ;   // Segundos entre cada hoja generada
+    public float spawnInterval ;   // seconds between leaves
 
     void Start()
     {
@@ -15,11 +15,11 @@ public class LeafSpawner : MonoBehaviour
 
     void SpawnLeaf()
     {
-        // Posición aleatoria dentro de una esfera
+        // Random position inside a sphere.
         Vector3 randomOffset = Random.insideUnitSphere * spawnRadius;
         Vector3 spawnPosition = transform.position + spawnCenter + randomOffset;
 
-        // Rotación aleatoria para variedad visual
+        // Random rotation, so the leaves do not all look alike.
         Quaternion randomRotation = Quaternion.Euler(
             Random.Range(0f, 360f),
             Random.Range(0f, 360f),
@@ -28,7 +28,7 @@ public class LeafSpawner : MonoBehaviour
 
         GameObject leaf = Instantiate(leafPrefab, spawnPosition, randomRotation, transform);
 
-        // Escala ligeramente variable
+        // Slightly varied scale.
         float randomScale = Random.Range(0.8f, 1.2f);
         leaf.transform.localScale *= randomScale;
     }

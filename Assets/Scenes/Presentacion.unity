@@ -878,9 +878,9 @@ RectTransform:
   - {fileID: 298646248}
   m_Father: {fileID: 12968761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 240, y: -231.5783}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 456.6507, y: 459.7451}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &161800113
@@ -1759,9 +1759,9 @@ RectTransform:
   - {fileID: 1879989553}
   m_Father: {fileID: 12968761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 720, y: -231.5783}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 456.6507, y: 459.7451}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &314795384
@@ -2115,13 +2115,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15277855, y: 0.37741476, z: -0.06328295, w: 0.9111598}
-  m_LocalPosition: {x: -29.8, y: 27.02, z: -39.8}
+  m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
+  m_LocalPosition: {x: -214, y: 175, z: -243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 781962042}
-  m_LocalEulerAnglesHint: {x: 19.037, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2332,9 +2332,9 @@ RectTransform:
   - {fileID: 133658826}
   m_Father: {fileID: 1965634950}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 223.19, y: -43.5703}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 446.38, y: 87.1406}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &378071685
@@ -3632,6 +3632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 728697556}
   - component: {fileID: 728697555}
+  - component: {fileID: 728697557}
   m_Layer: 0
   m_Name: VehicleManager
   m_TagString: Untagged
@@ -3653,6 +3654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VehicleManager
   webSocketManager: {fileID: 1957102256}
   fieldGridGenerator: {fileID: 541941280}
+  fieldPainter: {fileID: 728697557}
   tractorPrefab: {fileID: 4243752961104632965, guid: 7ed7ae97a23a8ac45a6f3adc07908361, type: 3}
   harvesterPrefab: {fileID: 7371522335398671947, guid: 3cd0e1b0b327a3d4081ac5a2533e81ef, type: 3}
 --- !u!4 &728697556
@@ -3670,6 +3672,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &728697557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728697554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fa7f7e5adb1d6eabc93fa991f7e6be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FieldPainter
+  cropColor: {r: 0.85, g: 0.72, b: 0.24, a: 1}
+  harvestedColor: {r: 0.45, g: 0.33, b: 0.2, a: 1}
 --- !u!1 &746137777
 GameObject:
   m_ObjectHideFlags: 0
@@ -3917,9 +3933,9 @@ RectTransform:
   - {fileID: 679796172}
   m_Father: {fileID: 155585892}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 718.65, y: -112.3296}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 361.8092, y: 142.9155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &811809817
@@ -5275,9 +5291,9 @@ RectTransform:
   - {fileID: 196082039}
   m_Father: {fileID: 1965634950}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 223.19, y: -135.33215}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 446.38, y: 87.1406}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1376049470
@@ -5594,7 +5610,7 @@ Transform:
   m_GameObject: {fileID: 1553900937}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 76, y: 182.6, z: 68}
+  m_LocalPosition: {x: 0, y: 200, z: -29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6391,9 +6407,9 @@ RectTransform:
   - {fileID: 1943106630}
   m_Father: {fileID: 155585892}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1197.75, y: -112.3296}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 361.8092, y: 142.9155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1876434576
@@ -6467,9 +6483,9 @@ RectTransform:
   - {fileID: 1057907873}
   m_Father: {fileID: 155585892}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 239.55, y: -112.3296}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 361.8092, y: 142.9155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1878227698
@@ -6816,7 +6832,7 @@ Transform:
   m_GameObject: {fileID: 1918337048}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 47, y: 187, z: 76}
+  m_LocalPosition: {x: 0, y: 240, z: -29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7405,7 +7421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2024045607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7435,10 +7451,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

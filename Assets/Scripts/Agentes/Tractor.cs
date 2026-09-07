@@ -46,7 +46,7 @@ public class Tractor : MonoBehaviour
         {
         ResetMovement();
         }
-        // después del segundo 5 ya no hace nada: se detiene
+        // Past second 5 no branch matches, so the machine stops.
         
     }
 

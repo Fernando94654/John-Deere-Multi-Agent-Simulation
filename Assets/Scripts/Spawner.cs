@@ -17,8 +17,7 @@ public class Spawner : MonoBehaviour
         spawner = this;
     }
 
-    // Se conserva para pruebas sin servidor conectado: elige obstáculos al
-    // azar sobre el arreglo de fields recibido.
+    // Kept for testing without a server: picks obstacles at random.
     public void SpawnObstacles(GameObject[] fields)
     {
         int obstacleCount = Mathf.RoundToInt(fields.Length * obstaclePercentage);
@@ -42,11 +41,7 @@ public class Spawner : MonoBehaviour
         SpawnFields(fields, fieldsWithObstacle);
     }
 
-    // Punto de integración con el servidor: en vez de elegir al azar, recibe
-    // las posiciones exactas de obstáculo (row, column) y las traduce al
-    // índice del arreglo "fields" con la misma fórmula que usa
-    // FieldGridGenerator (index = row * columns + col), así que el orden en
-    // que se generó el grid debe coincidir con el que se usa aquí.
+    // Exact obstacle cells from the server; index must match FieldGridGenerator's.
     public void SpawnFromServer(GameObject[] fields, int columns, ObstacleData[] obstaclePositions, SiloData[] siloPositions)
     {
         HashSet<GameObject> fieldsWithObstacle = new HashSet<GameObject>();
@@ -69,7 +64,7 @@ public class Spawner : MonoBehaviour
             {
                 GameObject field = fields[index];
                 Vector3 position = field.transform.position;
-                position.y += 0.5f; // Ajusta la altura según sea necesario
+                position.y += 0.5f; // lift the silo clear of the cell
                 Instantiate(siloPrefab, position, Quaternion.identity);
             }
         }
@@ -107,12 +102,7 @@ public class Spawner : MonoBehaviour
         Instantiate(selectedObject, spawnPosition, Quaternion.identity);
     }
 
-    // Límite defensivo: si fieldPrefab no está a la escala esperada (por
-    // ejemplo, un Plane sin reescalar mide 10x10 en vez de 1x1), este
-    // cálculo puede arrojar miles de columnas/filas y congelar o tirar el
-    // Editor al intentar instanciar todos esos trigos de golpe. Este límite
-    // no soluciona el problema de fondo (verificar la escala real de
-    // fieldPrefab), pero evita que un descuido de escala cause un crash.
+    // Guard: a mis-scaled fieldPrefab would spawn thousands of wheat and hang the Editor.
     private const int MaxWheatPerAxis = 30;
 
     private void SpawnWheat(GameObject field)
@@ -133,10 +123,9 @@ public class Spawner : MonoBehaviour
         if (columns > MaxWheatPerAxis || rows > MaxWheatPerAxis)
         {
             Debug.LogWarning(
-                $"{field.name}: se calcularon {columns}x{rows} trigos, lo cual excede " +
-                $"el límite de seguridad ({MaxWheatPerAxis}). Revisa la escala real de " +
-                "fieldPrefab (probablemente mide más de 1x1 unidad). Se recorta el " +
-                "conteo para evitar un cuelgue del Editor."
+                $"{field.name}: {columns}x{rows} wheat instances exceed the safety cap " +
+                $"of {MaxWheatPerAxis}. Check fieldPrefab's real scale (it is probably " +
+                "bigger than 1x1). The count is clamped to avoid hanging the Editor."
             );
 
             columns = Mathf.Min(columns, MaxWheatPerAxis);
