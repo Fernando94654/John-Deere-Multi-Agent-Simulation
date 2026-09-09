@@ -1,8 +1,10 @@
 using UnityEngine;
+using System;
 
 public class FieldGridGenerator : MonoBehaviour
 {
     public GameObject fieldPrefab;
+    public GameObject floorPrefab;
     public float spacing = 1f;
     public GameObject[] fields;
 
@@ -47,7 +49,35 @@ public class FieldGridGenerator : MonoBehaviour
             }
         }
 
+        // Generator of floor
+     
+            int extraFloorSides = (gridColumns > 15) ? (int)Math.Ceiling((gridColumns / 2f) / 15f) * 2 : 1;
+            int extraFloorDown  = (gridRows > 22)    ? (int)Math.Ceiling((gridRows+7) / 15f) : 1;
+
+
+            int begginingX = -300 * extraFloorSides/2 + 150;
+            int begginingZ = 0;
+
+            for(int jz = 0; jz<extraFloorDown; jz++){
+                for(int ix=0; ix<extraFloorSides; ix++){
+
+                    int posZ = begginingZ - (jz*300);
+                    int posX = begginingX + (ix*300);
+                    Vector3 posicionEspecifica = new Vector3(posX, 0f, posZ);
+
+                    GameObject floor = Instantiate (
+                        floorPrefab,
+                        posicionEspecifica,
+                        Quaternion.identity,
+                        transform
+                    );
+
+                    floor.name = $"Floor_{ix}_{jz}";
+                }
+            }
+
         IsGenerated = true;
+
     }
 
     // World position of cell (row, col); assumes fieldPrefab's pivot is cell-centred.
