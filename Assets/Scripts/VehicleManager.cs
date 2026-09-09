@@ -21,6 +21,18 @@ public class VehicleManager : MonoBehaviour
     private Dictionary<string, GameObject> tractorObjects = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> harvesterObjects = new Dictionary<string, GameObject>();
 
+    // --- Agregar dentro de la clase VehicleManager ---
+
+public IEnumerable<string> TractorIds => tractorObjects.Keys;
+public IEnumerable<string> HarvesterIds => harvesterObjects.Keys;
+
+public GameObject GetVehicleObject(string id)
+{
+    if (tractorObjects.TryGetValue(id, out var tractor)) return tractor;
+    if (harvesterObjects.TryGetValue(id, out var harvester)) return harvester;
+    return null;
+}
+
     void OnEnable()
     {
         webSocketManager.OnStateUpdated += HandleStateUpdated;
