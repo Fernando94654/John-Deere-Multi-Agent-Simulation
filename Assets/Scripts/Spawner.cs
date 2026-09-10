@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
     public GameObject[] SpawnableObjects;
     public GameObject siloPrefab;
     public GameObject wheatPrefab;
-    public float wheatSpacing = 0.1f;
+    public float wheatSpacing = 2f;
     private float obstaclePercentage = 0.05f;
     private List<GameObject> wheatList = new List<GameObject>();
 
@@ -82,7 +82,7 @@ public class Spawner : MonoBehaviour
             }
             else
             {
-                //SpawnWheat(field);
+                SpawnWheat(field);
             }
         }
     }
@@ -114,8 +114,8 @@ public class Spawner : MonoBehaviour
         float wheatSizeX = wheatRenderer.bounds.size.x;
         float wheatSizeZ = wheatRenderer.bounds.size.z;
 
-        float stepX = wheatSizeX + wheatSpacing;
-        float stepZ = wheatSizeZ + wheatSpacing;
+        float stepX = wheatSizeX + wheatSpacing+2;
+        float stepZ = wheatSizeZ + wheatSpacing+2;
 
         int columns = Mathf.FloorToInt((fieldBounds.size.x + wheatSpacing) / stepX);
         int rows = Mathf.FloorToInt((fieldBounds.size.z + wheatSpacing) / stepZ);

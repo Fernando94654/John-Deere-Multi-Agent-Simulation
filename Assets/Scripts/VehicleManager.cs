@@ -58,7 +58,10 @@ public GameObject GetVehicleObject(string id)
         // The terrain arrives whole each message, so repainting needs no accumulation.
         if (fieldPainter != null && state.crop != null)
         {
-            fieldPainter.Paint(fieldGridGenerator.fields, state.crop.cells);
+            fieldPainter.Paint(
+                fieldGridGenerator.fields,
+                state.crop.cells
+            );
         }
     }
 
@@ -66,8 +69,7 @@ public GameObject GetVehicleObject(string id)
     {
         foreach (VehicleData vehicle in vehicles)
         {
-            Vector3 targetPosition = fieldGridGenerator.GetCellCenter(vehicle.row, vehicle.column)
-                                     + OffsetFor(vehicle.id);
+            Vector3 targetPosition = fieldGridGenerator.GetCellCenter(vehicle.row, vehicle.column);
 
             if (!objects.ContainsKey(vehicle.id))
             {
