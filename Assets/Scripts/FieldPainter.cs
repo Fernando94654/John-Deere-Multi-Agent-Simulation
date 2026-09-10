@@ -41,32 +41,37 @@ public class FieldPainter : MonoBehaviour
         }
 
         int count = Mathf.Min(fields.Length, cells.Length);
+for (int i = 0; i < count; i++)
+{
+    if (painted[i] == cells[i])
+    {
+        continue;
+    }
 
-        for (int i = 0; i < count; i++)
-        {
-            if (painted[i] == cells[i])
-            {
-                continue;
-            }
+    painted[i] = cells[i];
 
-            painted[i] = cells[i];
+    // Rock cells already carry an obstacle prefab; recolouring would hide it.
+    if (cells[i] == Obstacle || fields[i] == null)
+    {
+        continue;
+    }
 
-            // Rock cells already carry an obstacle prefab; recolouring would hide it.
-            if (cells[i] == Obstacle || fields[i] == null)
-            {
-                continue;
-            }
+    // Standing crop keeps the field's original material — only paint on harvest.
+    if (cells[i] != Harvested)
+    {
+        continue;
+    }
 
-            Renderer renderer = fields[i].GetComponent<Renderer>();
+    Renderer renderer = fields[i].GetComponent<Renderer>();
 
-            if (renderer == null)
-            {
-                continue;
-            }
+    if (renderer == null)
+    {
+        continue;
+    }
 
-            renderer.GetPropertyBlock(block);
-            block.SetColor(BaseColorId, cells[i] == Harvested ? harvestedColor : cropColor);
-            renderer.SetPropertyBlock(block);
-        }
+    renderer.GetPropertyBlock(block);
+    block.SetColor(BaseColorId, harvestedColor);
+    renderer.SetPropertyBlock(block);
+}
     }
 }

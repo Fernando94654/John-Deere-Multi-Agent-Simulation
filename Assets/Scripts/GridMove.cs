@@ -73,4 +73,12 @@ public class GridMove : MonoBehaviour
 
         facing = direction;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Wheat"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }

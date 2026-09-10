@@ -4774,7 +4774,7 @@ MonoBehaviour:
   - {fileID: 4681093162201276045, guid: 7c37c1f06a23ee0408272a410377382b, type: 3}
   siloPrefab: {fileID: 1174777513940362725, guid: 8d240d7b51c9ce843a937cec7a767511, type: 3}
   wheatPrefab: {fileID: 6412838056170152211, guid: 3048d404c1d2d9aa6a84291322c77e75, type: 3}
-  wheatSpacing: 2
+  wheatSpacing: 0.1
 --- !u!4 &2044293086
 Transform:
   m_ObjectHideFlags: 0
