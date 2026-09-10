@@ -1,10 +1,13 @@
 using UnityEngine;
-using System;
 
 public class FieldGridGenerator : MonoBehaviour
 {
     public GameObject fieldPrefab;
     public GameObject floorPrefab;
+
+    // World size of one floorPrefab tile (Campo is a 10-unit plane scaled x30 = 300).
+    public float floorTileSize = 300f;
+
     public float spacing = 1f;
     public GameObject[] fields;
 
@@ -48,36 +51,57 @@ public class FieldGridGenerator : MonoBehaviour
                 index++;
             }
         }
-
-
-                // Generator of floor
-
-            int extraFloorSides = (gridColumns > 15) ? (int)Math.Ceiling((gridColumns / 2f) / 15f) * 2 : 1;
-            int extraFloorDown  = (gridRows > 22)    ? (int)Math.Ceiling((gridRows+7) / 15f) : 1;
-
-
-            int begginingX = -300 * extraFloorSides/2 + 150;
-            int begginingZ = 0;
-
-            for(int jz = 0; jz<extraFloorDown; jz++){
-                for(int ix=0; ix<extraFloorSides; ix++){
-
-                    int posZ = begginingZ - (jz*300);
-                    int posX = begginingX + (ix*300);
-                    Vector3 posicionEspecifica = new Vector3(posX, 0f, posZ);
-
-                    GameObject floor = Instantiate (
-                        floorPrefab,
-                        posicionEspecifica,
-                        Quaternion.identity,
-                        transform
-                    );
-
-                    floor.name = $"Floor_{ix}_{jz}";
-                }
-            }
+        GenerateFloor();
 
         IsGenerated = true;
+    }
+
+    // Tiles the ground under the whole grid. The cells are centred on X at
+    // transform.position.x and run from transform.position.z back toward -Z, so
+    // the floor has to be aligned to those bounds - not around the world origin,
+    // which is what left the -Z end uncovered.
+    private void GenerateFloor()
+    {
+        if (floorPrefab == null || floorTileSize <= 0f)
+        {
+            return;
+        }
+
+        // Span the cells occupy in world units, plus one cell of headland margin.
+        float gridWidth = (gridColumns - 1) * spacing + spacing;
+        float gridDepth = (gridRows - 1) * spacing + spacing;
+
+        int tilesX = Mathf.Max(1, Mathf.CeilToInt(gridWidth / floorTileSize));
+        int tilesZ = Mathf.Max(1, Mathf.CeilToInt(gridDepth / floorTileSize));
+
+        // Grid centre in world space.
+        float centerX = transform.position.x;
+        float centerZ = transform.position.z - (gridRows - 1) * spacing / 2f;
+
+        // Top-left tile centre, so the block stays centred on the grid.
+        float startX = centerX - (tilesX - 1) * floorTileSize / 2f;
+        float startZ = centerZ + (tilesZ - 1) * floorTileSize / 2f;
+
+        for (int iz = 0; iz < tilesZ; iz++)
+        {
+            for (int ix = 0; ix < tilesX; ix++)
+            {
+                Vector3 position = new Vector3(
+                    startX + ix * floorTileSize,
+                    transform.position.y,
+                    startZ - iz * floorTileSize
+                );
+
+                GameObject floor = Instantiate(
+                    floorPrefab,
+                    position,
+                    Quaternion.identity,
+                    transform
+                );
+
+                floor.name = $"Floor_{ix}_{iz}";
+            }
+        }
     }
 
     // World position of cell (row, col); assumes fieldPrefab's pivot is cell-centred.

@@ -2417,6 +2417,7 @@ GameObject:
   - component: {fileID: 1553900940}
   - component: {fileID: 1553900939}
   - component: {fileID: 1553900938}
+  - component: {fileID: 1553900942}
   m_Layer: 0
   m_Name: CamaraTop
   m_TagString: Untagged
@@ -2424,6 +2425,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1553900942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553900937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f3df52fada145618edc39ad53fa8ed4, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::TopCameraFraming
+  gridGenerator: {fileID: 541941280}
+  padding: 0.1
+  minHeight: 200
+  trackChanges: 1
 --- !u!114 &1553900938
 MonoBehaviour:
   m_ObjectHideFlags: 0
